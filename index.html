@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff9ed">
+  <title>Club Python · Misiones para exploradores</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="lessons.js" defer></script>
+  <script src="advanced-lessons.js" defer></script>
+  <script src="runner.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Club Python, inicio">
+      <span class="brand-icon" aria-hidden="true">🐍</span>
+      <span>Club Python <small>misiones para exploradores</small></span>
+    </a>
+    <div class="progress-wrap">
+      <span id="progress-label">0 de 12 misiones</span>
+      <progress id="course-progress" max="12" value="0" aria-label="Progreso del curso"></progress>
+    </div>
+  </header>
+  <div class="layout">
+    <nav id="mission-nav" class="mission-nav" aria-label="Mapa de misiones"></nav>
+    <main id="main-content" tabindex="-1"></main>
+  </div>
+  <footer class="site-footer">
+    <p>¡Cada error es una pista! Prueba, observa y vuelve a intentarlo.</p>
+    <a href="readme.md">Guía para la familia</a>
+  </footer>
+  <div id="live-message" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>
