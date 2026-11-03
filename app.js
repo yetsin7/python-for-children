@@ -93,6 +93,16 @@ function canVisitLesson(id) {
   return state.completed.includes(id) || !firstUnfinished || id <= firstUnfinished.id;
 }
 
+/** Keep the current or last mission visible without moving the lesson itself. */
+function revealCurrentMission() {
+  const target = navigation.querySelector('.map-link.active') ||
+    (state.lastLesson && navigation.querySelector('[href="#mision-' + state.lastLesson + '"]'));
+  if (!target || navigation.clientHeight === 0) return;
+  const navigationBounds = navigation.getBoundingClientRect();
+  const targetBounds = target.getBoundingClientRect();
+  navigation.scrollTop += (targetBounds.top + targetBounds.bottom - navigationBounds.top - navigationBounds.bottom) / 2;
+}
+
 /** Render the mission map and identify the active mission. */
 function renderNavigation(activeId) {
   navigation.innerHTML = '<a class="map-home" href="#inicio">🏠 Inicio</a><h2>Mapa de misiones</h2>' +
@@ -108,6 +118,7 @@ function renderNavigation(activeId) {
         '</span><span class="map-check" aria-label="' + (done ? CHILD_UI.done : locked ? CHILD_UI.locked : CHILD_UI.pending) + '">' +
         (done ? "⭐" : locked ? "🔒" : "") + "</span></a>";
     }).join("");
+  requestAnimationFrame(revealCurrentMission);
 }
 
 /** Render the child-friendly course landing page. */
@@ -269,6 +280,7 @@ function toggleMissionNavigation() {
   document.body.classList.toggle("menu-open", open);
   button.setAttribute("aria-expanded", String(open));
   button.textContent = open ? CHILD_UI.closeMenu : CHILD_UI.openMenu;
+  if (open) requestAnimationFrame(revealCurrentMission);
 }
 
 const menuButton = document.getElementById("menu-toggle");
