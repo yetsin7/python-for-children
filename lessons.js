@@ -91,8 +91,8 @@ window.CHILD_LESSONS = [
   },
   {
     id: 9, emoji: "🛠️", title: "Crea tus propios poderes", story: "Pipo quiere tener un superpoder que pueda usar una y otra vez.",
-    idea: "Una función es un grupo de instrucciones con nombre. def crea la función y () la pone en marcha. Puedes llamarla todas las veces que quieras.",
-    example: "def saludar():\n    print(\"¡Hola, equipo!\")\n\nsaludar()\nsaludar()",
+    idea: "Una función es un grupo de instrucciones con nombre. def significa «definir»: crea la función, pero todavía no la ejecuta. Los paréntesis indican dónde podrían ir los datos de entrada. La nota entre tres comillas, llamada docstring, explica qué hace la función; no es una instrucción que se ejecute. Escribe su nombre con paréntesis para llamarla y usar sus instrucciones.",
+    example: "def saludar():\n    \"\"\"Muestra un saludo en pantalla.\"\"\"\n    # ¿Qué instrucción mostraría el saludo?",
     challenge: "Crea una función con un nombre divertido. Haz que muestre un mensaje y úsala dos veces.",
     starter: "def baile_robot():\n    print(\"🤖 ¡Bip, bop!\")\n\nbaile_robot()\nbaile_robot()",
     hint: "La función empieza con def y :. Las instrucciones de dentro llevan cuatro espacios.",

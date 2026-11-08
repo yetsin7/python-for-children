@@ -3,8 +3,8 @@
 window.ADVANCED_CHILD_LESSONS = [
   {
     id: 13, emoji: "🎲", title: "Puntos y reglas", story: "¡Pipo ganó puntos! Una función puede recibir un número y devolver una respuesta.",
-    idea: "Las funciones también pueden recibir información entre paréntesis. return devuelve un resultado para que el programa lo use después.",
-    example: "def puntos_dobles(puntos):\n    return puntos * 2\n\nresultado = puntos_dobles(5)\nprint(resultado)",
+    idea: "Los nombres entre paréntesis, como puntos, son parámetros: lugares donde la función recibe información. El valor que enviamos, como 5, es el argumento. La nota entre tres comillas se llama docstring y explica la función. return significa «devuelve» y entrega un resultado para que otra parte del programa lo use.",
+    example: "def puntos_dobles(puntos):\n    \"\"\"Devuelve el puntaje multiplicado por dos.\"\"\"\n    # ¿Qué valor devolverías con return?",
     challenge: "Cambia la función para regalar 3 puntos extra en vez de duplicarlos.",
     starter: "def puntos_extra(puntos):\n    return puntos + 3\n\nprint(puntos_extra(5))",
     hint: "Cambia la operación después de return. La función de este ejemplo entrega 8.",
@@ -25,14 +25,14 @@ window.ADVANCED_CHILD_LESSONS = [
   },
   {
     id: 15, emoji: "🧯", title: "Una red para los errores", story: "¿Y si alguien escribe una letra donde esperábamos un número? Pipo puede responder con amabilidad.",
-    idea: "try prueba unas instrucciones. Si algo sale mal, except permite responder al error sin cerrar el programa. No es para esconder errores, sino para ayudar a la persona.",
-    example: "try:\n    edad = int(\"nueve\")\n    print(edad)\nexcept ValueError:\n    print(\"Escribe tu edad usando números\")",
+    idea: "try significa «intenta»: las instrucciones debajo podrían fallar. int(...) intenta convertir texto en un número entero. \"nueve\" no es un número escrito con cifras, así que Python produce ValueError (un aviso de que el valor no sirve para esa operación). except significa «si pasa este error»: except ValueError responde solo a ese problema. No es para esconder errores; es para explicar qué puede hacer la persona.",
+    example: "try:\n    edad = int(\"nueve\")\nexcept ValueError:\n    # ¿Qué mensaje ayudaría a la persona?",
     challenge: "Cambia el mensaje para explicar con amabilidad qué debe escribir la persona.",
     starter: "try:\n    numero = int(\"nueve\")\nexcept ValueError:\n    print(\"¡Ups! Prueba con un número, como 9\")",
     hint: "El código que puede fallar va debajo de try. La respuesta al error va debajo de except.",
-    question: "¿Qué hace except en un bloque try?",
-    options: ["Ayuda a decidir qué hacer si ocurre un error.", "Repite todo para siempre.", "Convierte texto en una lista."],
-    answer: 0, why: "except da una respuesta especial cuando ocurre el error que estamos esperando."
+    question: "¿Qué significa except ValueError?",
+    options: ["Si el valor no sirve para la conversión, responde aquí.", "Repite todo para siempre.", "Convierte texto en una lista."],
+    answer: 0, why: "except responde a un error esperado; ValueError es el nombre de ese error concreto."
   },
   {
     id: 16, emoji: "📓", title: "Guardar una nota", story: "Pipo no quiere olvidar su puntaje cuando termina una partida.",

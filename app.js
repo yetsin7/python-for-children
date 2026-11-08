@@ -70,6 +70,13 @@ function escapeHtml(value) {
   })[character]);
 }
 
+/** Show a short teaching excerpt, never the complete mission program. */
+function teachingSnippet(source) {
+  const lines = source.trim().split("\n");
+  const excerptLength = Math.max(1, Math.min(3, lines.length - 1));
+  return lines.slice(0, excerptLength).join("\n") + "\n# ... (fragmento; falta el resto)";
+}
+
 /** Announce an interaction result without changing the learner's position. */
 function announce(message) {
   liveMessage.textContent = message;
@@ -136,7 +143,7 @@ function renderHome() {
     '<a class="preview-card" href="#mision-13"><span>🧰</span><strong>Etapa 2 · Taller de inventos <small>10 ideas nuevas: archivos, pruebas, datos y personajes.</small></strong></a>' +
     '<a class="preview-card" href="#mision-23"><span>🚀</span><strong>Etapa 3 · Laboratorio de proyectos <small>10 retos para diseñar, probar y compartir tus ideas.</small></strong></a>' +
     "</div></section><aside class=\"grownup-note\"><strong>Para quien acompaña:</strong> las primeras 12 misiones empiezan desde cero. " +
-    "Las etapas 2 y 3 son retos opcionales para descubrir después, con ayuda cuando haga falta. Para practicar, copia cada ejemplo en VS Code o cualquier editor y ejecútalo desde la terminal del editor, PowerShell o CMD.</aside>";
+    "Las etapas 2 y 3 son retos opcionales para descubrir después, con ayuda cuando haga falta. Para practicar, explica el fragmento con tus palabras, escribe tu propia solución en VS Code o cualquier editor y ejecútala desde la terminal del editor, PowerShell o CMD.</aside>";
 }
 
 /** Render one mission with an external-editor exercise and self-assessment. */
@@ -166,9 +173,8 @@ function renderLesson(id) {
     '<section class="editor-section"><div class="section-title"><h2>⌨️ ¡A probar!</h2></div>' +
     '<p class="challenge"><strong>🎯 Tu reto:</strong> ' + escapeHtml(lesson.challenge) +
     ' <details class="hint"><summary>¿Una pista?</summary><p>' + escapeHtml(lesson.hint) + '</p></details></p>' +
-    '<h3>Ejemplo</h3><pre class="source-code"><code>' + escapeHtml(lesson.example) + '</code></pre>' +
-    '<h3>Inicio del reto</h3><pre class="source-code"><code>' + escapeHtml(lesson.starter) + '</code></pre>' +
-    '<aside class="editor-help"><strong>Abre tu herramienta favorita:</strong> copia el código en un archivo <code>.py</code> con VS Code o cualquier editor. Ejecútalo desde la terminal del editor, PowerShell o CMD.</aside></section>' +
+    '<h3>Fragmento para estudiar</h3><pre class="source-code"><code>' + escapeHtml(teachingSnippet(lesson.example)) + '</code></pre>' +
+    '<aside class="editor-help"><strong>Ahora escribe tú:</strong> este fragmento enseña una idea, no es un programa para copiar. Explica cada línea con tus palabras, resuelve el reto en un archivo <code>.py</code> propio y ejecútalo desde VS Code, PowerShell o CMD.</aside></section>' +
     '<section class="idea-card"><h2>' + escapeHtml(CHILD_UI.extraPractice) + '</h2><p>' + escapeHtml(practice.exercise) + '</p></section>' +
     '<form id="quiz-form" class="quiz-card"><h2>🧠 Pausa para pensar</h2><fieldset><legend>' +
     escapeHtml(lesson.question) + "</legend>" + lesson.options.map((option, index) =>

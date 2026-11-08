@@ -1,9 +1,9 @@
 # Child Course: Python Club
 
 This Spanish-language course introduces Python through 32 guided missions for a
-child around nine years old. Each mission presents one idea, a code example, a
-challenge to practice in an external editor, a comprehension question, and a
-progress star.
+child around nine years old. Each mission presents one idea, a short code
+fragment with an explanation, a challenge to solve in an external editor, a
+comprehension question, and a progress star.
 
 ## Start the course
 
@@ -12,9 +12,9 @@ not require an application server or an account.
 
 ## Practice the code
 
-Install Python, copy a mission example into a `.py` file using VS Code or any
+Install Python, write your own solution in a `.py` file using VS Code or any
 other text editor, and run it from the editor's integrated terminal, PowerShell,
-or Command Prompt:
+or Command Prompt. The mission fragment is a clue, not a complete solution:
 
 ```powershell
 python my-exercise.py
