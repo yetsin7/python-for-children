@@ -8,21 +8,28 @@ comprehension question, and a progress star.
 ## Start the course
 
 Open `index.html` in a browser. Reading the missions and saving quiz progress do
-not require an application server or an account.
+not require an application server or an account. This folder is self-contained:
+it can be copied elsewhere and still works.
 
-## Practice the code
+## First time on a computer
 
-Install Python, write your own solution in a `.py` file using VS Code or any
-other text editor, and run it from the editor's integrated terminal, PowerShell,
-or Command Prompt. The mission fragment is a clue, not a complete solution:
+Start with the "Prepara tu nave" page (`index.html#preparar`). It explains the
+mouse, the keyboard symbols used in code, installing Python, creating a folder,
+and writing, saving and running a first program with IDLE (File > New File,
+File > Save As, then F5). Sit next to the child and read the steps aloud.
 
-```powershell
-python my-exercise.py
-```
+## What every mission contains
 
-When a program calls `input()`, type the response in the terminal after running
-the file. Keep each attempt in a separate, descriptively named file so the child
-can compare versions and recover earlier ideas.
+- A story and the idea of the day.
+- New words with their meaning, including English keywords such as `print`.
+- The example read line by line, plus what appears on screen.
+- A challenge with a hint and a write, save, run, look routine.
+- The most common mistake and how to fix it.
+- Two questions that must be answered correctly to earn the star.
+
+When a program calls `input()`, type the response in the IDLE window where the
+question appears and press Enter. Keep each attempt in a separate,
+descriptively named file so the child can compare versions.
 
 ## Mission route
 

@@ -8,12 +8,12 @@ try {
     $listener.Stop()
 }
 catch {
-    Write-Error "El puerto $port ya está ocupado. Cierra otro servidor o prueba la guía readme.md."
+    Write-Error "Port $port is already in use. Close the other server or review readme.md."
     exit 1
 }
 
 if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
-    Write-Error "No encontré Python. Instálalo desde python.org o consulta readme.md."
+    Write-Error "Python was not found. Install it from python.org or review readme.md."
     exit 1
 }
 
@@ -27,10 +27,10 @@ for ($attempt = 0; $attempt -lt 20; $attempt++) {
     catch {
         if ($attempt -eq 19) {
             Stop-Process -Id $server.Id
-            throw "El servidor local no respondió en $url"
+            throw "The local server did not respond at $url"
         }
     }
 }
 Start-Process $url
-Write-Host "Club Python está abierto."
-Write-Host "Para cerrar el servidor, ejecuta: Stop-Process -Id $($server.Id)"
+Write-Host "Python Club is open."
+Write-Host "To stop the server, run: Stop-Process -Id $($server.Id)"

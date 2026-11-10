@@ -47,11 +47,11 @@ window.CHILD_LESSONS = [
   },
   {
     id: 5, emoji: "🎤", title: "Habla con tu programa", story: "Pipo quiere conocerte. ¡Ahora el programa puede hacerte una pregunta!",
-    idea: "input(\"pregunta\") muestra una pregunta y espera tu respuesta. La respuesta es texto y puedes guardarla en una variable. Escríbela en la cajita de entrada antes de ejecutar.",
+    idea: "input(\"pregunta\") muestra una pregunta y espera tu respuesta. La respuesta es texto y puedes guardarla en una variable. Escribe tu respuesta con el teclado y presiona Enter.",
     example: "nombre = input(\"¿Cómo te llamas? \")\nprint(\"¡Hola, \" + nombre + \"!\")",
     challenge: "Haz una pregunta diferente y usa la respuesta en un mensaje de bienvenida.",
     starter: "color = input(\"¿Cuál es tu color favorito? \")\nprint(\"¡Me gusta el \" + color + \"!\")",
-    hint: "Escribe tu respuesta en «Respuesta para input» antes de ejecutar. Para unir textos, usa +.",
+    hint: "Cuando el programa pregunte, escribe tu respuesta y presiona Enter. Para unir textos, usa +.",
     question: "¿Qué hace input()?",
     options: ["Espera a que alguien escriba una respuesta.", "Dibuja una estrella.", "Repite el programa para siempre."],
     answer: 0, why: "input() pregunta y espera que la persona escriba algo."
@@ -128,7 +128,7 @@ window.CHILD_LESSONS = [
     example: "secreto = 7\nrespuesta = int(input(\"Adivina el número del 1 al 10: \"))\nif respuesta == secreto:\n    print(\"¡Ganaste! 🏆\")\nelse:\n    print(\"¡Casi! El número era\", secreto)",
     challenge: "Cambia el número secreto y los mensajes. Prueba adivinarlo. Si quieres, usa varias preguntas y pistas.",
     starter: "secreto = 7\nrespuesta = int(input(\"Adivina el número del 1 al 10: \"))\nif respuesta == secreto:\n    print(\"¡Ganaste! 🏆\")\nelse:\n    print(\"¡Casi! El número era\", secreto)",
-    hint: "Escribe un número, sin palabras, en «Respuesta para input». int(...) convierte el texto en número.",
+    hint: "Cuando el programa pregunte, escribe un número con cifras, sin palabras, y presiona Enter. int(...) convierte el texto en número.",
     question: "¿Qué comprueba respuesta == secreto?",
     options: ["Si los dos valores son iguales.", "Si hace frío.", "Si la lista está vacía."],
     answer: 0, why: "== compara los valores. Si son iguales, la respuesta es verdadera."

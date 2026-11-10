@@ -40,7 +40,7 @@ window.ADVANCED_CHILD_LESSONS = [
     example: "with open(\"nota.txt\", \"w\") as archivo:\n    archivo.write(\"Pipo encontró 10 estrellas\")\n\nwith open(\"nota.txt\") as archivo:\n    print(archivo.read())",
     challenge: "Cambia la nota para guardar tu propio récord. ¿Qué ocurre si escribes otra nota con el mismo nombre de archivo?",
     starter: "with open(\"mi-record.txt\", \"w\") as archivo:\n    archivo.write(\"Mi mejor puntaje es 10\")\n\nwith open(\"mi-record.txt\") as archivo:\n    print(archivo.read())",
-    hint: "El nombre del archivo va entre comillas. En este laboratorio los archivos viven solo mientras la consola está abierta.",
+    hint: "El nombre del archivo va entre comillas. El archivo aparecerá en la misma carpeta donde guardaste tu programa.",
     question: "¿Para qué sirve with open(...)?",
     options: ["Abre un archivo y ayuda a cerrarlo ordenadamente.", "Abre una página de internet.", "Suma los puntos."],
     answer: 0, why: "with se ocupa del archivo y lo cierra al terminar el bloque."
