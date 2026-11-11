@@ -52,11 +52,11 @@ function symbolHelpMarkup(code) {
       "</dt><dd><strong>Alt + " + altCode + "</strong> · " + escapeHtml(keys) + "</dd></div>";
   }
   if (/^ +\S/m.test(code)) {
-    rows += "<div><dt>" + escapeHtml(CHILD_UI.typing.indentName) + "</dt><dd>" + escapeHtml(CHILD_UI.typing.indentHelp) + "</dd></div>";
+    rows += "<div><dt>" + escapeHtml(CHILD_UI.typing.indentName) + "</dt><dd>" + inlineMarkup(CHILD_UI.typing.indentHelp) + "</dd></div>";
   }
   if (!rows) return "";
   return '<details class="symbol-help" open><summary>⌨️ ' + escapeHtml(CHILD_UI.typing.symbolsTitle) +
-    '</summary><dl class="word-list">' + rows + '</dl><p class="output-note">' + escapeHtml(CHILD_UI.typing.altHelp) + "</p></details>";
+    '</summary><dl class="word-list">' + rows + '</dl><p class="output-note">' + inlineMarkup(CHILD_UI.typing.altHelp) + "</p></details>";
 }
 
 /** Render the drill with one status row per expected line and a paste-proof writing area. */
@@ -171,13 +171,13 @@ function ideasPageMarkup() {
   let markup = '<article class="lesson-page"><a class="back-home" href="#inicio">← ' + escapeHtml(CHILD_UI.guide.map) +
     '</a><header class="lesson-heading"><span class="lesson-emoji" aria-hidden="true">💡</span><div><p class="eyebrow">' +
     escapeHtml(CHILD_UI.ideas.eyebrow) + '</p><h1 tabindex="-1">' + escapeHtml(ideas.title) + '</h1></div></header><p class="story">' +
-    escapeHtml(ideas.intro) + '</p><section class="idea-card setup-card"><h2>🧪 ' + escapeHtml(ideas.recipeTitle) + "</h2><ol>" +
-    ideas.recipe.map((step) => "<li>" + escapeHtml(step) + "</li>").join("") + "</ol></section>";
+    inlineMarkup(ideas.intro) + '</p><section class="idea-card setup-card"><h2>🧪 ' + escapeHtml(ideas.recipeTitle) + "</h2><ol>" +
+    ideas.recipe.map((step) => "<li>" + inlineMarkup(step) + "</li>").join("") + "</ol></section>";
   for (const group of ideas.groups) {
     markup += '<section class="mission-preview"><h2>' + escapeHtml(group.title) + '</h2><div class="invention-grid">' +
       group.ideas.map(([emoji, title, what, tools]) => '<article class="invention"><span aria-hidden="true">' + emoji +
-        "</span><h3>" + escapeHtml(title) + "</h3><p>" + escapeHtml(what) + '</p><p class="invention-tools">' +
-        escapeHtml(CHILD_UI.ideas.tools) + " " + escapeHtml(tools) + "</p></article>").join("") + "</div></section>";
+        "</span><h3>" + escapeHtml(title) + "</h3><p>" + inlineMarkup(what) + '</p><p class="invention-tools">' +
+        escapeHtml(CHILD_UI.ideas.tools) + " " + inlineMarkup(tools) + "</p></article>").join("") + "</div></section>";
   }
-  return markup + '<aside class="grownup-note">' + escapeHtml(ideas.closing) + "</aside></article>";
+  return markup + '<aside class="grownup-note">' + inlineMarkup(ideas.closing) + "</aside></article>";
 }

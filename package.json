@@ -4,7 +4,7 @@
   "private": true,
   "description": "A self-contained Spanish Python course for children.",
   "scripts": {
-    "check:javascript": "node --check course-session.js && node --check lessons.js && node --check advanced-lessons.js && node --check learning-content.js && node --check guide-basics.js && node --check guide-advanced.js && node --check setup-guide.js && node --check guide-view.js && node --check keyboard-symbols.js && node --check invention-ideas.js && node --check typing-view.js && node --check ui-text.js && node --check app.js && node --check check-content.js",
+    "check:javascript": "node --check course-session.js && node --check lessons.js && node --check advanced-lessons.js && node --check learning-content.js && node --check guide-basics.js && node --check guide-advanced.js && node --check setup-guide.js && node --check inline-text.js && node --check guide-view.js && node --check keyboard-symbols.js && node --check invention-ideas.js && node --check typing-view.js && node --check ui-text.js && node --check app.js && node --check check-content.js",
     "check:content": "node check-content.js",
     "check": "pnpm run check:javascript && pnpm run check:content"
   }

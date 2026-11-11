@@ -220,3 +220,9 @@ body.menu-open .menu-toggle { left: calc(var(--nav) + 20px); }
   .invention-grid { grid-template-columns: 1fr; }
   .idea-card, .quiz-card, .finish-card, .editor-section { padding: 20px 18px; }
 }
+
+/* Inline code and keys inside prose */
+.inline-code { padding: 2px 8px; border: 2px solid #ddd3fb; border-radius: 9px; background: #f1ecff; color: #4b2fb8; font: 700 .88em "Cascadia Code", Consolas, monospace; white-space: nowrap; }
+.inline-key { display: inline-block; min-width: 28px; margin: 0 1px; padding: 0 9px; border: 2px solid #c9c2de; border-bottom-width: 4px; border-radius: 9px; background: #fff; color: var(--ink); font: 800 .85em "Cascadia Code", Consolas, monospace; text-align: center; white-space: nowrap; }
+.idea-card .inline-code, .story .inline-code, .grownup-note .inline-code { background: #fff; }
+.word-list dt .inline-code { font-size: .95em; }

@@ -177,28 +177,28 @@ function renderLesson(id) {
     '</span><div><p class="eyebrow">' + escapeHtml(CHILD_UI.lesson.mission) + ' ' + String(id).padStart(2, "0") +
     ' ' + escapeHtml(CHILD_UI.lesson.of) + ' ' + lessons.length +
     '</p><h1 tabindex="-1">' + escapeHtml(lesson.title) + '</h1></div></header>' +
-    '<p class="story">' + escapeHtml(lesson.story) + '</p>' +
-    '<section class="idea-card"><h2>💡 ' + escapeHtml(CHILD_UI.lesson.idea) + '</h2><p>' + escapeHtml(lesson.idea) + '</p></section>' +
+    '<p class="story">' + inlineMarkup(lesson.story) + '</p>' +
+    '<section class="idea-card"><h2>💡 ' + escapeHtml(CHILD_UI.lesson.idea) + '</h2><p>' + inlineMarkup(lesson.idea) + '</p></section>' +
     '<section class="idea-card words-card"><h2>📖 ' + escapeHtml(CHILD_UI.lesson.words) + '</h2>' + wordsMarkup(guide.words) + '</section>' +
     '<section class="editor-section"><div class="section-title"><h2>🔍 ' + escapeHtml(CHILD_UI.lesson.readCode) + '</h2></div>' +
     '<p>' + escapeHtml(CHILD_UI.lesson.readCodeHelp) + '</p>' + codeWalkMarkup(lesson) + '</section>' + typingMarkup(lesson) +
     '<section class="editor-section"><div class="section-title"><h2>⌨️ ' + escapeHtml(CHILD_UI.lesson.tryCode) + '</h2></div>' +
-    '<p class="challenge"><strong>🎯 ' + escapeHtml(CHILD_UI.lesson.challenge) + '</strong> ' + escapeHtml(lesson.challenge) +
-    ' <details class="hint"><summary>' + escapeHtml(CHILD_UI.lesson.hint) + '</summary><p>' + escapeHtml(lesson.hint) + '</p></details></p>' +
+    '<p class="challenge"><strong>🎯 ' + escapeHtml(CHILD_UI.lesson.challenge) + '</strong> ' + inlineMarkup(lesson.challenge) +
+    ' <details class="hint"><summary>' + escapeHtml(CHILD_UI.lesson.hint) + '</summary><p>' + inlineMarkup(lesson.hint) + '</p></details></p>' +
     howToMarkup() + '</section>' +
-    '<section class="idea-card oops-card"><h2>🧯 ' + escapeHtml(CHILD_UI.lesson.troubleshooting) + '</h2><p>' + escapeHtml(guide.oops) + '</p></section>' +
-    '<section class="idea-card"><h2>' + escapeHtml(CHILD_UI.extraPractice) + '</h2><p>' + escapeHtml(practice.exercise) + '</p></section>' +
+    '<section class="idea-card oops-card"><h2>🧯 ' + escapeHtml(CHILD_UI.lesson.troubleshooting) + '</h2><p>' + inlineMarkup(guide.oops) + '</p></section>' +
+    '<section class="idea-card"><h2>' + escapeHtml(CHILD_UI.extraPractice) + '</h2><p>' + inlineMarkup(practice.exercise) + '</p></section>' +
     '<form id="quiz-form" class="quiz-card"><h2>🧠 ' + escapeHtml(CHILD_UI.lesson.reflection) + '</h2><fieldset><legend>' +
-    escapeHtml(lesson.question) + "</legend>" + quizOrder.map((index) =>
+    inlineMarkup(lesson.question) + "</legend>" + quizOrder.map((index) =>
       '<label class="quiz-option"><input type="radio" name="answer" value="' + index + '"' +
       (selectedAnswer === index ? " checked" : "") + '><span>' +
-      escapeHtml(lesson.options[index]) + "</span></label>").join("") +
-    '</fieldset><fieldset><legend>' + escapeHtml(CHILD_UI.extraQuestion) + ': ' + escapeHtml(practice.question) + '</legend>' +
+      inlineMarkup(lesson.options[index]) + "</span></label>").join("") +
+    '</fieldset><fieldset><legend>' + escapeHtml(CHILD_UI.extraQuestion) + ': ' + inlineMarkup(practice.question) + '</legend>' +
     extraOptions.map((option, index) => '<label class="quiz-option"><input type="radio" name="extra-answer" value="' + index + '"' +
-      (state.extraAnswers[id] === index ? ' checked' : '') + '><span>' + escapeHtml(option) + '</span></label>').join('') +
+      (state.extraAnswers[id] === index ? ' checked' : '') + '><span>' + inlineMarkup(option) + '</span></label>').join('') +
     '</fieldset><button class="button button-small" type="submit">' + escapeHtml(CHILD_UI.checkAnswers) + '</button>' +
     (Number.isInteger(selectedAnswer) && Number.isInteger(state.extraAnswers[id]) ? '<p class="quiz-feedback' + (passed ? "" : " incorrect") +
-      '" role="status">' + (passed ? escapeHtml(CHILD_UI.lesson.correct) + ' ' + escapeHtml(lesson.why) :
+      '" role="status">' + (passed ? escapeHtml(CHILD_UI.lesson.correct) + ' ' + inlineMarkup(lesson.why) :
       escapeHtml(CHILD_UI.retry)) + "</p>" : "") +
     '</form><section class="finish-card"><h2>⭐ ' + escapeHtml(CHILD_UI.lesson.ready) + '</h2><p>' +
     (completed ? escapeHtml(CHILD_UI.lesson.alreadyCompleted) :
@@ -253,7 +253,7 @@ function bindLessonControls(lesson) {
     if (previousFeedback) previousFeedback.remove();
     event.target.insertAdjacentHTML("beforeend", '<p class="quiz-feedback' +
       (state.quizzes[lesson.id] ? "" : " incorrect") + '" role="status">' +
-      (state.quizzes[lesson.id] ? escapeHtml(CHILD_UI.lesson.correct) + ' ' + escapeHtml(lesson.why) :
+      (state.quizzes[lesson.id] ? escapeHtml(CHILD_UI.lesson.correct) + ' ' + inlineMarkup(lesson.why) :
         escapeHtml(CHILD_UI.retry)) + "</p>");
     refreshFinishButton(lesson.id);
     announce(state.quizzes[lesson.id] ? CHILD_UI.lesson.correctAnnouncement + " " + lesson.why : CHILD_UI.retry);
