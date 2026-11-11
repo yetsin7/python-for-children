@@ -9,9 +9,16 @@ const CHILD_GUIDE = [...window.CHILD_GUIDE_BASICS, ...window.CHILD_GUIDE_ADVANCE
  * Must return a whole number between 1 and totalLines.
  */
 function visibleLineCount(missionId, totalLines) {
-  // TODO(human): choose the reveal policy. The line below keeps the previous behaviour
-  // (always hide at least the last line, never show more than three).
+  // Stage 1 starts from zero, so complete worked examples teach more than hidden lines.
+  if (missionId <= 12) return totalLines;
   return Math.max(1, Math.min(3, totalLines - 1));
+}
+
+/** List the example lines a mission reveals, skipping blank lines. */
+function visibleCodeLines(lesson) {
+  const codeLines = lesson.example.split("\n").filter((line) => line.trim());
+  const requested = Math.round(Number(visibleLineCount(lesson.id, codeLines.length)));
+  return codeLines.slice(0, Math.max(1, Math.min(codeLines.length, Number.isFinite(requested) ? requested : 1)));
 }
 
 /** Render new words as a friendly list of term and meaning. */

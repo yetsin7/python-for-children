@@ -23,6 +23,10 @@ File > Save As, then F5). Sit next to the child and read the steps aloud.
 - A story and the idea of the day.
 - New words with their meaning, including English keywords such as `print`.
 - The example read line by line, plus what appears on screen.
+- A typing drill: the child types the code by hand, each line turns green when
+  it is right, pasting is disabled, and code cannot be copied from the page.
+- Keyboard help listing only the symbols used by that mission, with the Alt
+  code (for example `\` is Alt + 92) and the key combination.
 - A challenge with a hint and a write, save, run, look routine.
 - The most common mistake and how to fix it.
 - Two questions that must be answered correctly to earn the star.

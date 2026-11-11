@@ -13,7 +13,7 @@ const courseSession = createCourseSession("child-course-session", (hash) =>
 
 /** Create an independent progress record for a learner. */
 function emptyState() {
-  return { completed: [], quizzes: {}, quizAnswers: {}, extraAnswers: {}, lastLesson: null };
+  return { completed: [], quizzes: {}, quizAnswers: {}, extraAnswers: {}, typed: {}, days: [], lastLesson: null };
 }
 
 /** Read compatible learner progress and discard unknown or malformed fields. */
@@ -45,6 +45,13 @@ function readState() {
         if (validIds.has(Number(id)) && Number.isInteger(answer) && answer >= 0 && answer <= 2) next.extraAnswers[id] = answer;
       }
     }
+    if (candidate.typed && typeof candidate.typed === "object" && !Array.isArray(candidate.typed)) {
+      for (const [id, value] of Object.entries(candidate.typed)) if (validIds.has(Number(id)) && value === true) next.typed[id] = true;
+    }
+    for (const day of Array.isArray(candidate.days) ? candidate.days : []) {
+      if (typeof day === "string" && /^\d{4}-\d{2}-\d{2}$/.test(day) && !next.days.includes(day)) next.days.push(day);
+    }
+    next.days = next.days.sort().slice(-730);
     if (validIds.has(candidate.lastLesson)) next.lastLesson = candidate.lastLesson;
     return next;
   } catch (error) {
@@ -77,9 +84,9 @@ function announce(message) {
 
 /** Refresh the course progress meter from completed missions. */
 function updateProgress() {
-  const points = state.completed.length * 100;
+  const points = state.completed.length * 100 + Object.keys(state.typed).length * 20;
   const level = Math.floor(state.completed.length / 4) + 1;
-  document.getElementById("reward-label").textContent = CHILD_UI.reward(level, points);
+  document.getElementById("reward-label").textContent = CHILD_UI.reward(level, points, practiceStreak());
   progressBar.max = lessons.length;
   progressBar.value = state.completed.length;
   progressLabel.textContent = state.completed.length === lessons.length
@@ -107,7 +114,8 @@ function revealCurrentMission() {
 function renderNavigation(activeId) {
   navigation.innerHTML = '<a class="map-home" href="#inicio">🏠 ' + escapeHtml(CHILD_UI.navigation.home) + '</a>' +
     '<a class="map-home map-prep" href="#preparar"' + (activeId === "preparar" ? ' aria-current="page"' : "") +
-    '>🧰 ' + escapeHtml(CHILD_UI.navigation.setup) + '</a><h2>' + escapeHtml(CHILD_UI.navigation.title) + '</h2>' +
+    '>🧰 ' + escapeHtml(CHILD_UI.navigation.setup) + '</a><a class="map-home map-ideas" href="#inventos"' +
+    (activeId === "inventos" ? ' aria-current="page"' : "") + '>💡 ' + escapeHtml(CHILD_UI.navigation.ideas) + '</a><h2>' + escapeHtml(CHILD_UI.navigation.title) + '</h2>' +
     lessons.map((lesson) => {
       const done = state.completed.includes(lesson.id);
       const locked = !canVisitLesson(lesson.id);
@@ -160,7 +168,7 @@ function renderLesson(id) {
   const quizShift = (id * 2 + 1) % lesson.options.length;
   const quizOrder = lesson.options.map((_, position) => (position + quizShift) % lesson.options.length);
   const completed = state.completed.includes(id);
-  const canComplete = passed;
+  const canComplete = passed && (state.typed[id] === true || typingLines(lesson).length === 0);
   const nextLink = id < lessons.length
     ? '<a class="button button-main" href="#mision-' + (id + 1) + '">' + escapeHtml(CHILD_UI.lesson.next) + ' →</a>'
     : '<a class="button button-main" href="#inicio">' + escapeHtml(CHILD_UI.lesson.backToMap) + ' 🏆</a>';
@@ -173,7 +181,7 @@ function renderLesson(id) {
     '<section class="idea-card"><h2>💡 ' + escapeHtml(CHILD_UI.lesson.idea) + '</h2><p>' + escapeHtml(lesson.idea) + '</p></section>' +
     '<section class="idea-card words-card"><h2>📖 ' + escapeHtml(CHILD_UI.lesson.words) + '</h2>' + wordsMarkup(guide.words) + '</section>' +
     '<section class="editor-section"><div class="section-title"><h2>🔍 ' + escapeHtml(CHILD_UI.lesson.readCode) + '</h2></div>' +
-    '<p>' + escapeHtml(CHILD_UI.lesson.readCodeHelp) + '</p>' + codeWalkMarkup(lesson) + '</section>' +
+    '<p>' + escapeHtml(CHILD_UI.lesson.readCodeHelp) + '</p>' + codeWalkMarkup(lesson) + '</section>' + typingMarkup(lesson) +
     '<section class="editor-section"><div class="section-title"><h2>⌨️ ' + escapeHtml(CHILD_UI.lesson.tryCode) + '</h2></div>' +
     '<p class="challenge"><strong>🎯 ' + escapeHtml(CHILD_UI.lesson.challenge) + '</strong> ' + escapeHtml(lesson.challenge) +
     ' <details class="hint"><summary>' + escapeHtml(CHILD_UI.lesson.hint) + '</summary><p>' + escapeHtml(lesson.hint) + '</p></details></p>' +
@@ -200,6 +208,15 @@ function renderLesson(id) {
     (completed ? '✅ ' + escapeHtml(CHILD_UI.lesson.completedButton) : escapeHtml(CHILD_UI.lesson.completeButton)) + "</button>" +
     (completed ? nextLink : "") + "</section></article>";
   bindLessonControls(lesson);
+  refreshTyping(lesson);
+}
+
+/** Require both correct answers and the hand-typed code before a mission can be completed. */
+function missionReady(lessonId) {
+  const lesson = lessons.find((item) => item.id === lessonId);
+  return state.quizzes[lessonId] === true &&
+    state.extraAnswers[lessonId] === lessonId % window.CHILD_PRACTICE[lessonId - 1].options.length &&
+    (state.typed[lessonId] === true || typingLines(lesson).length === 0);
 }
 
 /** Enable mission completion after the learner answers correctly. */
@@ -207,8 +224,7 @@ function refreshFinishButton(lessonId) {
   const button = document.getElementById("complete-lesson");
   if (!button) return;
   const completed = state.completed.includes(lessonId);
-  button.disabled = completed || state.quizzes[lessonId] !== true ||
-    state.extraAnswers[lessonId] !== lessonId % window.CHILD_PRACTICE[lessonId - 1].options.length;
+  button.disabled = completed || !missionReady(lessonId);
 }
 
 /** Bind mission assessment and completion controls. */
@@ -243,9 +259,10 @@ function bindLessonControls(lesson) {
     announce(state.quizzes[lesson.id] ? CHILD_UI.lesson.correctAnnouncement + " " + lesson.why : CHILD_UI.retry);
   });
   document.getElementById("complete-lesson").addEventListener("click", () => {
-    if (state.quizzes[lesson.id] !== true ||
-        state.extraAnswers[lesson.id] !== lesson.id % window.CHILD_PRACTICE[lesson.id - 1].options.length) return;
+    if (!missionReady(lesson.id)) return;
     if (!state.completed.includes(lesson.id)) state.completed.push(lesson.id);
+    recordPracticeDay();
+    showToast(CHILD_UI.completed);
     state.completed.sort((left, right) => left - right);
     saveState();
     updateProgress();
@@ -274,6 +291,9 @@ function renderRoute() {
   } else if (window.location.hash === "#preparar") {
     renderNavigation("preparar");
     main.innerHTML = setupPageMarkup();
+  } else if (window.location.hash === "#inventos") {
+    renderNavigation("inventos");
+    main.innerHTML = ideasPageMarkup();
   } else renderHome();
 }
 
@@ -318,6 +338,7 @@ menuButton.addEventListener("click", toggleMissionNavigation);
 navigation.addEventListener("click", (event) => {
   if (event.target.closest("a") && window.matchMedia("(max-width: 780px)").matches) toggleMissionNavigation();
 });
+bindTypingControls();
 courseSession.prepare();
 window.addEventListener("hashchange", handleRouteChange);
 renderRoute();

@@ -4,7 +4,7 @@
 const path = require("node:path");
 
 global.window = {};
-for (const file of ["lessons", "advanced-lessons", "learning-content", "guide-basics", "guide-advanced", "setup-guide"]) {
+for (const file of ["lessons", "advanced-lessons", "learning-content", "guide-basics", "guide-advanced", "setup-guide", "keyboard-symbols", "invention-ideas"]) {
   require(path.join(__dirname, file + ".js"));
 }
 
@@ -42,6 +42,16 @@ lessons.forEach((lesson, index) => {
 expect(window.CHILD_SETUP.sections.length >= 5, "The setup guide needs its preparation sections.");
 for (const section of window.CHILD_SETUP.sections) {
   expect(section.title && section.items.length >= 3, "Setup section is too thin: " + section.title);
+}
+
+const keySymbols = window.CHILD_KEYS.map((entry) => entry[0]);
+expect(keySymbols.length === new Set(keySymbols).size, "Keyboard symbols must not repeat.");
+for (const entry of window.CHILD_KEYS) {
+  expect(entry.length === 4 && Number.isInteger(entry[2]), "Keyboard entry needs symbol, name, Alt code and keys: " + entry[0]);
+}
+expect(window.CHILD_IDEAS.recipe.length >= 5, "The ideas page needs its step-by-step recipe.");
+for (const group of window.CHILD_IDEAS.groups) {
+  expect(group.ideas.length >= 3 && group.ideas.every((idea) => idea.length === 4), "Idea group is incomplete: " + group.title);
 }
 
 if (problems.length) {
