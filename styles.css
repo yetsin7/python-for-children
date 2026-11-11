@@ -189,3 +189,34 @@ body:not(.menu-open) .site-footer { padding-left: 48px; }
 .site-footer p { margin: 0; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 body.menu-open .menu-toggle { left: calc(var(--nav) + 20px); }
+
+/* Narrow windows: the mission map becomes a drawer and columns stack */
+@media (max-width: 1100px) {
+  :root { --topbar: 68px; }
+  .topbar { padding: 0 20px; gap: 14px; }
+  .progress-wrap { grid-template-columns: auto 170px; }
+  .layout, body:not(.menu-open) .layout { display: block; }
+  .mission-nav, body:not(.menu-open) .mission-nav { position: fixed; z-index: 28; top: var(--topbar); left: 0; width: var(--nav); max-width: 86vw; height: calc(100vh - var(--topbar)); background: #fffdf8; box-shadow: 12px 0 30px #241f3d33; }
+  body:not(.menu-open) .mission-nav { display: none; }
+  body.menu-open .mission-nav { display: block; }
+  body.menu-open .menu-toggle { left: 20px; }
+  #main-content { padding: 28px 24px 70px; }
+  .site-footer, body:not(.menu-open) .site-footer { padding-left: 24px; padding-right: 24px; }
+  .welcome { padding: 36px 32px; }
+  .welcome h1 { font-size: 42px; }
+  .welcome-art { top: 24px; right: 28px; font-size: 72px; }
+  .preview-grid { grid-template-columns: 1fr; }
+  .invention-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .word-list { grid-template-columns: 1fr; }
+  .lesson-heading { padding: 22px 24px; gap: 18px; }
+  h1 { font-size: 36px; }
+}
+@media (max-width: 760px) {
+  .brand small { display: none; }
+  .progress-wrap { grid-template-columns: 1fr; }
+  #reward-label { grid-row: auto; padding: 4px 12px; font-size: 13px; }
+  #progress-label, .progress-wrap progress { display: none; }
+  .welcome-art { display: none; }
+  .invention-grid { grid-template-columns: 1fr; }
+  .idea-card, .quiz-card, .finish-card, .editor-section { padding: 20px 18px; }
+}

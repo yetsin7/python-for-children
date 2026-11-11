@@ -332,11 +332,11 @@ function initializeInterfaceText() {
 const menuButton = document.getElementById("menu-toggle");
 initializeInterfaceText();
 menuButton.setAttribute("aria-expanded", "false");
-if (window.matchMedia("(min-width: 781px)").matches) toggleMissionNavigation();
+if (window.matchMedia("(min-width: 1101px)").matches) toggleMissionNavigation();
 else menuButton.textContent = CHILD_UI.openMenu;
 menuButton.addEventListener("click", toggleMissionNavigation);
 navigation.addEventListener("click", (event) => {
-  if (event.target.closest("a") && window.matchMedia("(max-width: 780px)").matches) toggleMissionNavigation();
+  if (event.target.closest("a") && window.matchMedia("(max-width: 1100px)").matches) toggleMissionNavigation();
 });
 bindTypingControls();
 courseSession.prepare();
